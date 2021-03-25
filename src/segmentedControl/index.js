@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ViewPropTypes,
 } from "react-native";
+import { Icon } from "react-native-elements";
 
 const getSegmentedBackgroundColor = (theme, colorValueFromProps) => {
   return colorValueFromProps || (theme === "LIGHT" ? "#E5E5EA" : "#4a5568");
@@ -67,8 +68,9 @@ const SegmentedControl = (props) => {
   return (
     <Animated.View
       style={[
-        props?.containerStyle,
+       
         styles.segmentedControlWrapper,
+        props?.containerStyle,
         {
           width: width,
         },
@@ -96,7 +98,7 @@ const SegmentedControl = (props) => {
               props?.theme,
               props?.activeSegmentBackgroundColor
             ),
-            borderRadius: 8,
+            borderRadius: 25,
             ...shadow,
           },
           {
@@ -117,7 +119,7 @@ const SegmentedControl = (props) => {
             onPress={() => memoizedTabPressCallback(index)}
             activeOpacity={0.7}
           >
-            <Text
+            {/* <Text
               numberOfLines={1}
               style={[
                 styles.textStyles,
@@ -139,7 +141,8 @@ const SegmentedControl = (props) => {
               ]}
             >
               {tab}
-            </Text>
+            </Text> */}
+            <Icon name={tab} size={22} color={isCurrentIndex ? props?.selectedColor : props?.unselectedColor} />
           </TouchableOpacity>
         );
       })}
@@ -152,7 +155,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    borderRadius: 8,
+    borderRadius: 25,
   },
   textWrapper: {
     flex: 1,
@@ -195,7 +198,7 @@ SegmentedControl.propTypes = {
 
 SegmentedControl.defaultProps = {
   tabs: [],
-  onChange: () => {},
+  onChange: () => { },
   currentIndex: 0,
   segmentedControlBackgroundColor: null,
   activeSegmentBackgroundColor: null,
