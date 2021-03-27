@@ -68,7 +68,7 @@ const SegmentedControl = (props) => {
   return (
     <Animated.View
       style={[
-       
+
         styles.segmentedControlWrapper,
         props?.containerStyle,
         {
@@ -92,8 +92,8 @@ const SegmentedControl = (props) => {
             position: "absolute",
             width: (width - 4) / props?.tabs?.length,
             top: 0,
-            marginVertical: 2,
-            marginHorizontal: 2,
+            marginVertical: 0,
+            marginStart: 2,
             backgroundColor: getActiveSegmentedBackgroundColor(
               props?.theme,
               props?.activeSegmentBackgroundColor
