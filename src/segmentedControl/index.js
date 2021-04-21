@@ -142,7 +142,7 @@ const SegmentedControl = (props) => {
             >
               {tab}
             </Text> */}
-            <Icon type={props?.iconType || 'material' } name={tab} size={22} color={isCurrentIndex ? props?.selectedColor : props?.unselectedColor} />
+            <Icon type={props?.iconType || 'material'} name={tab} size={props?.iconSize || 22} color={isCurrentIndex ? props?.selectedColor : props?.unselectedColor} />
           </TouchableOpacity>
         );
       })}
