@@ -40,7 +40,7 @@ const defaultShadowStyle = {
 
 const SegmentedControl = (props) => {
   const { width, shadowStyle } = props;
-  const translateValue = (width - 4) / props?.tabs?.length;
+  const translateValue = (width ) / props?.tabs?.length;
   const [tabTranslate, setTabTranslate] = React.useState(new Animated.Value(0));
   const shadow = shadowStyle || defaultShadowStyle;
   // useCallBack with an empty array as input, which will call inner lambda only once and memoize the reference for future calls
@@ -90,10 +90,10 @@ const SegmentedControl = (props) => {
           {
             ...StyleSheet.absoluteFill,
             position: "absolute",
-            width: (width - 4) / props?.tabs?.length,
+            width: (width ) / props?.tabs?.length,
             top: 0,
             marginVertical: 0,
-            marginStart: 2,
+            marginStart: 0,
             backgroundColor: getActiveSegmentedBackgroundColor(
               props?.theme,
               props?.activeSegmentBackgroundColor
