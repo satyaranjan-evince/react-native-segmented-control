@@ -40,7 +40,7 @@ const defaultShadowStyle = {
 
 const SegmentedControl = (props) => {
   const { width, shadowStyle } = props;
-  const translateValue = (width ) / props?.tabs?.length;
+  const translateValue = (width) / props?.tabs?.length;
   const [tabTranslate, setTabTranslate] = React.useState(new Animated.Value(0));
   const shadow = shadowStyle || defaultShadowStyle;
   // useCallBack with an empty array as input, which will call inner lambda only once and memoize the reference for future calls
@@ -56,10 +56,12 @@ const SegmentedControl = (props) => {
     const transitionMultiplier = props?.isRTL ? -1 : 1;
 
     // Animating the active index based current index
+
+    // if (!props?.disableFlag)
     Animated.spring(tabTranslate, {
       toValue: props?.currentIndex * (transitionMultiplier * translateValue),
-      stiffness: 150,
-      damping: 20,
+      stiffness: props?.disableFlag ? 1500000 : 150,
+      damping: props?.disableFlag ? 20000 : 20,
       mass: 1,
       useNativeDriver: true,
     }).start();
@@ -90,7 +92,7 @@ const SegmentedControl = (props) => {
           {
             ...StyleSheet.absoluteFill,
             position: "absolute",
-            width: (width ) / props?.tabs?.length,
+            width: (width) / props?.tabs?.length,
             top: 0,
             marginVertical: 0,
             marginStart: 0,
@@ -100,6 +102,7 @@ const SegmentedControl = (props) => {
             ),
             borderRadius: 25,
             ...shadow,
+            // borderWidth:3
           },
           {
             transform: [
@@ -108,6 +111,7 @@ const SegmentedControl = (props) => {
               },
             ],
           },
+          props?.tabStyle
         ]}
       ></Animated.View>
       {props?.tabs.map((tab, index) => {
@@ -119,30 +123,32 @@ const SegmentedControl = (props) => {
             onPress={() => memoizedTabPressCallback(index)}
             activeOpacity={0.7}
           >
-            {/* <Text
-              numberOfLines={1}
-              style={[
-                styles.textStyles,
-                props?.textStyle,
-                isCurrentIndex
-                  ? {
+            {props?.isIcon == true ?
+              <Icon type={props?.iconType || 'material'} name={tab} size={props?.iconSize || 22} color={isCurrentIndex ? props?.selectedColor : props?.unselectedColor} />
+              : <Text
+                numberOfLines={1}
+                allowFontScaling={false}
+                style={[
+                  styles.textStyles,
+                  props?.textStyle,
+                  isCurrentIndex
+                    ? {
                       color: getActiveSegmentedTextColor(
                         props?.theme,
                         props?.activeTextColor
                       ),
                       fontWeight: props?.activeTextWeight,
                     }
-                  : {
+                    : {
                       color: getSegmentedTextColor(
                         props?.theme,
                         props?.textColor
                       ),
                     },
-              ]}
-            >
-              {tab}
-            </Text> */}
-            <Icon type={props?.iconType || 'material'} name={tab} size={props?.iconSize || 22} color={isCurrentIndex ? props?.selectedColor : props?.unselectedColor} />
+                ]}
+              >
+                {tab}
+              </Text>}
           </TouchableOpacity>
         );
       })}
